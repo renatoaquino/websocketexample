@@ -7,7 +7,7 @@ Just install the nodejs package dependencies with the command
 
 <code>npm install</code>
 
-Run teh nodejs app
+Run the nodejs app
 
 <code>node index.js</code>
 
