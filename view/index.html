@@ -1,0 +1,60 @@
+<!DOCTYPE html>  
+<meta charset="utf-8" />  
+<title>WebSocket Graph</title>  
+<link href="style.css" rel="stylesheet" type="text/css">
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="flot/excanvas.min.js"></script><![endif]-->
+<script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script language="javascript" type="text/javascript" src="flot/jquery.flot.min.js"></script>
+<script language="javascript" type="text/javascript">  
+
+    var wsUri = "ws://localhost:8080"; 
+
+    $(function() {
+        // We use an inline data source in the example, usually data would
+        // be fetched from a server
+
+        var plot = $.plot("#placeholder", [], {
+            series: {
+                shadowSize: 0,   // Drawing is faster without shadows
+                bars: {
+                    show: true,
+                    barWidth: 0.6,
+                    align: "center"
+                }                
+            },
+            yaxis: {
+                min: 0,
+                max: 1
+            },
+            xaxis: {
+                show: false
+            },
+            label: "CPU %",
+
+        });
+
+        var allPoints = [];
+        var websocket = new WebSocket(wsUri); 
+        websocket.onopen = function(evt) { console.log("CONNECTED"); }; 
+        websocket.onclose = function(evt) { console.log("DISCONNECTED"); }; 
+        websocket.onmessage = function(evt) {
+            data = JSON.parse(evt.data);
+            plot.getOptions().yaxes[0].max = data.yaxis;
+            plot.setupGrid();             
+            plot.setData([data.data]);
+            plot.draw();
+        }; 
+        websocket.onerror = function(evt) { 
+            console.log('ERROR: ' + evt.data); 
+        }; 
+    });
+
+    </script>
+<div id="header">
+<h2>WebSocket Graph</h2>
+</div>
+<div id="content">
+<div class="demo-container">
+    <div id="placeholder" class="demo-placeholder"></div>
+</div>
+</div>

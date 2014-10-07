@@ -1,0 +1,16 @@
+{
+  "name": "plotserver",
+  "version": "0.0.0",
+  "description": "Servidor para exemplo de uso de websocket em graficos.",
+  "main": "index.js",
+  "dependencies": {
+    "usage": "~0.4.13",
+    "ws": "~0.4.32"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Renato Aquino",
+  "license": "BSD-2-Clause"
+}
