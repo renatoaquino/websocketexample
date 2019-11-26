@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "usage": "~0.4.13",
-    "ws": "~0.4.32"
+    "ws":  ">=3.3.1"
   },
   "devDependencies": {},
   "scripts": {
